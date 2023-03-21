@@ -14,11 +14,17 @@ variable "create_trail" {
 variable "autotag_function_name" {
   description = "Name of lambda function"
   type        = string
-  default     = "autotag"
+  default     = "resource-autotag"
 }
 
 variable "lambda_log_level" {
   description = "Lambda logging level"
   type        = string
   default     = "INFO"
+}
+
+variable "lambda_tags" {
+  description = "Lambda logging level"
+  type        = string
+  default     = "{ \"CreatedBy\" : \"CreatedByValue\", \"Purpose\" : \"PurposeTagValue\" }"
 }

@@ -80,6 +80,7 @@ Resources:
                   - 'ec2:CreateTags'
                   - 'ec2:DescribeNatGateways'
                   - 'ec2:DescribeInternetGateways'
+                  - 'ec2:DescribeInstances'
                   - 'ec2:DescribeVolumes'
 
                   # Rules for RDS

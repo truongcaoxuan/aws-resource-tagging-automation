@@ -11,6 +11,7 @@ def aws_ec2(event):
     _region = event['region']
     ec2ArnTemplate = 'arn:aws:ec2:@region@:@account@:instance/@instanceId@'
     volumeArnTemplate = 'arn:aws:ec2:@region@:@account@:volume/@volumeId@'
+ 
     if event['detail']['eventName'] == 'RunInstances':
         print("tagging for new EC2...")
         _instanceId = event['detail']['responseElements']['instancesSet']['items'][0]['instanceId']

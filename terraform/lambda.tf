@@ -29,7 +29,12 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "lambda_bkt_encryp
 data "archive_file" "lambda_autotag" {
   type = "zip"
 
-  source_dir  = "${path.module}/lambda-autotag/src"
+  # Auto Tag EC2 Only
+  #source_dir  = "${path.module}/lambda-autotag/src-ec2"
+
+  # Auto Tag More Resource
+  source_dir = "${path.module}/lambda-autotag/src"
+
   output_path = "${path.module}/lambda-autotag/lambda_package.zip"
 }
 
@@ -49,14 +54,15 @@ resource "aws_lambda_function" "autotag" {
   s3_key           = aws_s3_object.lambda_package.key
   source_code_hash = data.archive_file.lambda_autotag.output_base64sha256
 
-  runtime     = "python3.9"
+  runtime     = "python3.8"
   handler     = "main_lambda.lambda_handler"
   timeout     = 300
   memory_size = 128
 
   environment {
     variables = {
-      LOG_LEVEL = var.lambda_log_level
+      LOG_LEVEL        = var.lambda_log_level
+      lambda_auto_tags = var.lambda_tags
     }
   }
 
